@@ -80,6 +80,22 @@ color: #ACD8AA;
     </div>
 
   <script data-cfasync="false" type="text/javascript">
+    var config = {
+  xhrSetup: function(xhr, url) {
+    if (url.split('.').pop() == 'm3u8') {
+      url = url.replace('m3u8', 'm3u8?rd=' + Math.random());
+      xhr.open('GET', url, true); 
+    }    
+    if (url.indexOf('?rd=') > -1) {
+      url = url.replace(/(rd=)[^\&]+/, 'rd=' + Math.random())
+      xhr.open('GET', url, true); 
+    }
+  }, 
+  debug:true
+}
+
+var hls = new Hls(config);
+    
     jwplayer('playerjxJRqLMFuJaA').setup({
     file: ' http://soundwave.cdn.sion.com:1935/ccnv/a_pqv/playlist.m3u8',
     file: ' http://soundwave.cdn.sion.com:1935/ccnv/a_pqv/playlist.m3u8',
